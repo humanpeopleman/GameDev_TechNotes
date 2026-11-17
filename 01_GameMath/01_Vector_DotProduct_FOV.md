@@ -1,7 +1,7 @@
-# 📐 [게임 수학] 벡터 내적(Dot Product)과 시야각(FOV) 판정
+# [게임 수학] 벡터 내적(Dot Product)과 시야각(FOV) 판정
 
 ## 1. 개요 (Overview)
-게임 개발에서 **벡터의 내적(Dot Product, 스칼라곱)**은 몬스터 AI의 시야각(FOV, Field of View) 판정, 캐릭터의 전방/후방(백스탭) 판정, 조명 계산(Lambertian Lighting) 등에 가장 빈번하게 사용되는 핵심 수학 연산이다.
+게임 개발에서 벡터의 내적(Dot Product, 스칼라곱)은 몬스터 AI의 시야각(FOV, Field of View) 판정, 캐릭터의 전방/후방(백스탭) 판정, 조명 계산(Lambertian Lighting) 등에 가장 빈번하게 사용되는 핵심 수학 연산이다.
 
 ---
 
@@ -10,7 +10,7 @@
 ### 공식
 $$\vec{A} \cdot \vec{B} = |\vec{A}| |\vec{B}| \cos(\theta) = A_x B_x + A_y B_y + A_z B_z$$
 
-두 벡터를 **정규화(Normalize, 크기를 1로)**하면 공식이 매우 단순해진다:
+두 벡터를 정규화(Normalize, 크기를 1로)하면 공식이 매우 단순해진다:
 $$\hat{A} \cdot \hat{B} = \cos(\theta)$$
 
 ### 부호에 따른 위치 판정 (전후방 판정)
@@ -30,7 +30,7 @@ $$\hat{A} \cdot \hat{B} = \cos(\theta)$$
 - 각도를 직접 구하려면 무거운 삼각함수의 역함수(`Acos`)를 호출해야 하므로 CPU 연산 낭비가 심하다.
 - 반면 내적은 **단순 곱셈 3번 + 덧셈 2번**으로 끝나며, 미리 구해둔 $\cos(\text{시야각})$ 상수와 비교하기만 하면 초고속으로 판정할 수 있다.
 
-### 🎨 시야각 시각화 컴포넌트 (`FOVLine.cs`)
+### 시야각 시각화 컴포넌트 (`FOVLine.cs`)
 LineRenderer를 활용하여 몬스터의 좌우 시야각 범위를 게임 화면에 직접 라인으로 렌더링한다.
 ```csharp
 using UnityEngine;
@@ -45,10 +45,10 @@ public class FOVLine : MonoBehaviour
 
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 4;
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+        lineRenderer = GetComponent<LineRenderer>(); // LineRenderer 컴포넌트 가져오기
+        lineRenderer.positionCount = 4;              // 라인 렌더러의 점 개수 설정
+        lineRenderer.startWidth = 0.05f;             // 라인 시작 너비
+        lineRenderer.endWidth = 0.05f;               // 라인 끝 너비
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class FOVLine : MonoBehaviour
         Vector3 rightDir = Quaternion.Euler(0, viewAngle / 2, 0) * transform.forward;
         
         Vector3 origin = transform.position; // 시야 시작점 (몬스터 위치)
-        lineRenderer.SetPosition(0, origin);
+        lineRenderer.SetPosition(0, origin);                           // 시야의 시작점(오브젝트 위치)
         lineRenderer.SetPosition(1, origin + leftDir * viewDistance);  // 왼쪽 시야 끝점
         lineRenderer.SetPosition(2, origin + rightDir * viewDistance); // 오른쪽 시야 끝점
         lineRenderer.SetPosition(3, origin);                           // 삼각형 닫기
@@ -66,7 +66,7 @@ public class FOVLine : MonoBehaviour
 }
 ```
 
-### ⚔️ 시야각 판정 및 회전 컨트롤러 (`EnemyController.cs`)
+### 시야각 판정 및 회전 컨트롤러 (`EnemyController.cs`)
 Space 키 입력 시마다 회전하며 플레이어가 시야각 내에 들어왔는지 내적(`Vector3.Dot`)으로 실시간 검증한다.
 ```csharp
 using UnityEngine;
