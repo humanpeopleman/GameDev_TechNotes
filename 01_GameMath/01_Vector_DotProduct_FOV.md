@@ -115,3 +115,7 @@ public class EnemyController : MonoBehaviour
 - 내적 결과의 부호: **양수면 앞($\theta < 90^\circ$), 음수면 뒤($\theta > 90^\circ$)**.
 - 각도를 직접 구하지 않고 **`Vector3.Dot`과 `Mathf.Cos(viewAngle / 2 * Mathf.Deg2Rad)`를 직접 비교**하여 CPU 최적화 달성.
 - `Quaternion.Euler * forward`를 활용하면 시야 경계 방향 벡터를 손쉽게 시각화할 수 있음.
+
+## 5. 스크린샷
+![시야각 시각화 데모1](../image/fov_demo1.png)
+![시야각 시각화 데모2](../image/fov_demo2.png)
