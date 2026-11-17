@@ -119,3 +119,6 @@ public class EnemyController : MonoBehaviour
 ## 5. 스크린샷
 ![시야각 시각화 데모1](../image/fov_demo1.png)
 ![시야각 시각화 데모2](../image/fov_demo2.png)
+
+## 6. 플레이 영상 링크
+https://youtu.be/1wFPYbWdUfs
